@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://service.flight.lyit.com/" xmlns:tns="http://service.flight.lyit.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="getLyitFlightCheckerboardArray" type="tns:getLyitFlightCheckerboardArray"/>
+
+  <xs:element name="getLyitFlightCheckerboardArrayResponse" type="tns:getLyitFlightCheckerboardArrayResponse"/>
+
+  <xs:element name="lyitFlightCheckerboard" type="tns:lyitFlightCheckerboard"/>
+
+  <xs:complexType name="getLyitFlightCheckerboardArray">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getLyitFlightCheckerboardArrayResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:lyitFlightCheckerboard" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="lyitFlightCheckerboard">
+    <xs:sequence>
+      <xs:element name="actTime" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="airlineCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="destAirport" type="xs:string" minOccurs="0"/>
+      <xs:element name="estTime" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="flightNo" type="xs:string" minOccurs="0"/>
+      <xs:element name="fromAirport" type="xs:string" minOccurs="0"/>
+      <xs:element name="gate" type="xs:string" minOccurs="0"/>
+      <xs:element name="route" type="xs:string" minOccurs="0"/>
+      <xs:element name="schTime" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="status" type="xs:string" minOccurs="0"/>
+      <xs:element name="terminal" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

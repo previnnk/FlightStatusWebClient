@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Flight Checker Status</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <a4j:region>            
+                <a4j:poll id="poll" interval="10000" enabled="#{FlightServiceCheckerBackingBean.pollEnabled}"  render="poll,dataGrid, gridView"/>            
+            </a4j:region>
+
+
+
+            <h:panelGrid  border="0" id="gridView" columns="5" width="70%">
+                <h:column>
+                    <h:outputLabel value="Airport :"/> <h:outputText value="#{FlightServiceCheckerBackingBean.airportName}" />
+                </h:column>
+                <h:column >
+                    <h:outputLabel value="Date :"/> <h:outputText value="#{FlightServiceCheckerBackingBean.dateString}"/>
+                </h:column>
+                <h:column>
+                    <h:outputLabel value="Time :"/>  <h:outputText value="#{FlightServiceCheckerBackingBean.timeString}"/>
+                </h:column>
+                <h:column>
+                    <h:outputText value="Arrival" />
+                    <h:selectBooleanCheckbox value="#{FlightServiceCheckerBackingBean.arrivalFlag}" >
+                        <a4j:ajax event="click" render="grid, gridView" />
+                    </h:selectBooleanCheckbox>
+                </h:column>
+                <h:column>
+                    <h:outputText value="Departure" />
+                    <h:selectBooleanCheckbox value="#{FlightServiceCheckerBackingBean.departureFlag}">
+                        <a4j:ajax event="click" render="dataGrid, gridView" />
+                    </h:selectBooleanCheckbox>
+                </h:column>
+            </h:panelGrid>
+            <h:panelGrid columns="1" width="100%" id="dataGrid" >
+                <h:column >
+                    <rich:dataTable value="#{FlightServiceCheckerBackingBean.lyitFlightCheckerboardList}" var="flightRow" id="grid" rendered="#{not empty FlightServiceCheckerBackingBean.lyitFlightCheckerboardList}">
+
+                        <rich:column>
+                            <f:facet name="header">Airline</f:facet>
+                            <h:outputText value="#{flightRow.airlineCode}" />                  
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">Flight No</f:facet>
+                            <h:outputText value="#{flightRow.flightNo}" />                  
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">From Airport</f:facet>
+                            <h:outputText value="#{flightRow.fromAirport}" />                  
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">Destination</f:facet>
+                            <h:outputText value="#{flightRow.destAirport}" />                  
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">Scheduled Time</f:facet>
+                            <h:outputText value="#{flightRow.schTime}" />                  
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">Actual Time</f:facet>
+                            <h:outputText value="#{flightRow.actTime}" />                  
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">Estimated Time</f:facet>
+                            <h:outputText value="#{flightRow.estTime}" />                  
+                        </rich:column>                
+
+                        <rich:column>
+                            <f:facet name="header">Terminal</f:facet>
+                            <h:outputText value="#{flightRow.terminal}" />                  
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">Status</f:facet>
+                            <h:outputText value="#{flightRow.status}" />                  
+                        </rich:column>                
+                        <rich:column>
+                            <f:facet name="header">Route</f:facet>
+                            <h:outputText value="#{flightRow.route}" />                  
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">Gate</f:facet>
+                            <h:outputText value="#{flightRow.gate}" />                  
+                        </rich:column>
+
+                    </rich:dataTable>
+
+                </h:column>
+                <h:column rendered="#{not FlightServiceCheckerBackingBean.successFlag}">
+                    <br/>
+                    <h3><b><h:outputLabel style="color: red;" value="Error Occured : "/></b><h:outputText value="#{FlightServiceCheckerBackingBean.errorDetail}" /></h3>
+                </h:column>
+
+            </h:panelGrid>
+
+
+        </h:form>
+
+    </h:body>
+</ui:composition>
